@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<title>Movie Recommendation System</title>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+	.recommended-movies-container {
+	  margin: 20px 0;
+	}
+	
+	.movie-card {
+	    border: 1px solid #ccc;
+	    padding: 15px;
+	    text-align: center;
+	    margin-bottom: 20px;
+	    height: 100%;
+	    display: flex;
+	    flex-direction: column;
+	    justify-content: space-between;
+	}
+	
+	.movie-card:hover {
+	  transform: scale(1.05);
+	  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+	}
+	
+	.movie-image {
+	    width: 100%;
+	    height: auto;
+	    max-height: 400px;
+	    flex-grow: 1;
+	}
+	
+	.movie-title {
+	  margin-top: 10px;
+	  font-size: 16px;
+	  font-weight: bold;
+	}
+	
+	.movie-card h3 {
+	  margin: 0;
+	}
+    
+    </style>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+        <a class="navbar-brand" href="/">Movie Recommendation System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/}">Home Page</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/friends}">Friends</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/movies}">Movies</a>
+                </li>
+                <li class="nav-item"><a class="nav-link"
+						th:href="@{/preferences}">Preferences</a>
+				</li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/logout}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+<br>
+	<a th:href="@{/recommendation_friends}" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Back to Friends List
+    </a>
+    <br>
+    <h1 class="text-center">Recommended Movies</h1>
+    <br>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="recommended-movies-container">
+                <div class="row">
+                    <div class="col-md-3" th:each="movie : ${recommendedMovies}">
+                        <div class="movie-card">
+                            <img th:if="${movie.imageBase64}" 
+                                 th:src="@{'data:image/jpeg;base64,' + ${movie.imageBase64}}"
+                                 alt="Movie Image" class="movie-image">
+                            <h3 class="movie-title" th:text="${movie.movie_name}"></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
